@@ -59,6 +59,9 @@ const Contents = styled.div`
     grid-template-columns: 1fr 3fr 1fr;
     padding: 1rem;
   }
+  &.qnalist {
+    overflow-y: auto;
+  }
 `;
 
 const UserNum = styled.div``;
@@ -93,8 +96,10 @@ export function InstructorDashboard() {
     courses.forEach((course) => {
       apiGetQnABoardsByCourse(course.courseId).then(async (response) => {
         const fetchedQnas = response.data.data;
+        // 최신 QnA 3개만 가져오기
+        const latestQnas = fetchedQnas.slice(0, 3);
         await Promise.all(
-          fetchedQnas.map((qna) => {
+          latestQnas.map((qna) => {
             return apiGetQnARepliesByQnABoardId(qna.qnaId).then((response) => {
               if (response.data.data.length > 0) {
                 qna.replyId = response.data.data[0].replyId;
@@ -102,10 +107,28 @@ export function InstructorDashboard() {
             });
           })
         );
-        setQnas(fetchedQnas);
+        setQnas(latestQnas);
       });
     });
   }, [courses]);
+
+  // useEffect(() => {
+  //   courses.forEach((course) => {
+  //     apiGetQnABoardsByCourse(course.courseId).then(async (response) => {
+  //       const fetchedQnas = response.data.data;
+  //       await Promise.all(
+  //         fetchedQnas.map((qna) => {
+  //           return apiGetQnARepliesByQnABoardId(qna.qnaId).then((response) => {
+  //             if (response.data.data.length > 0) {
+  //               qna.replyId = response.data.data[0].replyId;
+  //             }
+  //           });
+  //         })
+  //       );
+  //       setQnas(fetchedQnas);
+  //     });
+  //   });
+  // }, [courses]);
 
   return (
     <>

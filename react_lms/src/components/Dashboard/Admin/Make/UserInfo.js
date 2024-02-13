@@ -8,10 +8,12 @@ import {
   apiGetAllMembers,
   apiGetAllInstructors,
 } from "../../../RestApi";
+import { Chart as chartJS } from "chart.js/auto";
+import { Pie } from "react-chartjs-2";
 
 const TableContainer = styled.div`
   overflow-y: auto;
-  max-height: 220px;
+  max-height: 500px;
 `;
 const Table = styled.table`
   width: 100%;
@@ -22,6 +24,7 @@ const Th = styled.th`
   padding: 10px;
   border-bottom: 2px solid #ddd;
   background-color: #ddd;
+  text-align: start;
 `;
 
 const Td = styled.td`
@@ -40,13 +43,13 @@ const Container = styled.div`
   display: grid;
   grid-template-rows: repeat(2, auto);
   gap: 20px;
+  color: #454545;
 `;
 
 const Section = styled.div`
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-height: 300px;
   & .getAllSurfers {
     display: flex;
     gap: 2rem;
@@ -76,14 +79,24 @@ const StickyThead = styled.thead`
   z-index: 1;
 `;
 
+const PieContainer = styled.div`
+  width: 500px;
+  & h2 {
+    padding: 1.5rem 0;
+  }
+`;
+
 export function UserInfo() {
   const { user } = useContext(AuthContext);
   const [courses, setCourses] = useState([]);
-  const [userInfo, setUserInfo] = useState(null);
   const [surfers, setSurfers] = useState([]);
   const [surferUsers, setSurferUsers] = useState([]);
   const [surferMembers, setSurferMembers] = useState([]);
   const [surferInstructors, setSurferInstructors] = useState([]);
+  const [surfersCount, setSurfersCount] = useState(0);
+  const [surferUsersCount, setSurferUsersCount] = useState(0);
+  const [surferMembersCount, setSurferMembersCount] = useState(0);
+  const [surferInstructorsCount, setSurferInstructorsCount] = useState(0);
 
   useEffect(() => {
     apiGetAllCourses().then((response) => {
@@ -93,30 +106,51 @@ export function UserInfo() {
     fetchSurfers();
   }, []);
 
+  useEffect(() => {
+    fetchSurfers();
+    fetchUsers();
+    fetchMembers();
+    fetchInstructors();
+  }, []);
+
   const fetchSurfers = () => {
     apiGetAllSurfers().then((response) => {
       setSurfers(response.data.data);
-      console.log(response.data.data);
+      setSurfersCount(response.data.data.length);
+      setSurferUsers([]);
+      setSurferMembers([]);
+      setSurferInstructors([]);
     });
   };
 
   const fetchUsers = () => {
     apiGetAllUsers().then((response) => {
       setSurferUsers(response.data.data);
-      console.log(response.data.data);
+      setSurferUsersCount(response.data.data.length);
+      setSurfers([]);
+      setSurferMembers([]);
+      setSurferInstructors([]);
     });
   };
 
   const fetchMembers = () => {
     apiGetAllMembers().then((response) => {
       setSurferMembers(response.data.data);
-      console.log(response.data.data);
+      setSurferMembersCount(response.data.data.length);
+      setSurfers([]);
+      setSurferUsers([]);
+      setSurferInstructors([]);
     });
   };
 
   const fetchInstructors = () => {
     apiGetAllInstructors().then((response) => {
-      setSurferInstructors(response.data.data);
+      setSurferInstructors(response.data);
+      setSurferInstructorsCount(response.data.length);
+      console.log(response.data);
+      setSurfers([]);
+      setSurferUsers([]);
+      setSurferMembers([]);
     });
   };
 
@@ -126,10 +160,14 @@ export function UserInfo() {
         <div className="getAllSurfers">
           <h1>모든 유저 보기</h1>
           <div className="buttonBox">
-            <button onClick={fetchSurfers}>Surfers 조회</button>
-            <button onClick={fetchUsers}>Users 조회</button>
-            <button onClick={fetchMembers}>Members 조회</button>
-            <button onClick={fetchInstructors}>Members 조회</button>
+            <button onClick={fetchSurfers}>Surfers ({surfersCount}명)</button>
+            <button onClick={fetchUsers}>Users ({surferUsersCount}명)</button>
+            <button onClick={fetchMembers}>
+              Members ({surferMembersCount}명)
+            </button>
+            <button onClick={fetchInstructors}>
+              Instructors ({surferInstructorsCount}명)
+            </button>
           </div>
         </div>
         <TableContainer>
@@ -163,7 +201,7 @@ export function UserInfo() {
                   <Tr key={index}>
                     <Td>{user.name}</Td>
                     <Td>{user.loginId}</Td>
-                    <Td>{user.birthdate}</Td>
+                    <Td>{user.birthDate}</Td>
                     <Td>{user.gender}</Td>
                     <Td>{user.nationality}</Td>
                     <Td>{user.email}</Td>
@@ -175,16 +213,54 @@ export function UserInfo() {
                   <Tr key={index}>
                     <Td>{member.name}</Td>
                     <Td>{member.loginId}</Td>
-                    <Td>{member.birthdate}</Td>
+                    <Td>{member.birthDate}</Td>
                     <Td>{member.gender}</Td>
                     <Td>{member.nationality}</Td>
                     <Td>{member.email}</Td>
                     <Td>{member.phoneNum}</Td>
                   </Tr>
                 ))}
+              {surferInstructors &&
+                surferInstructors.map((instructor, index) => (
+                  <Tr key={index}>
+                    <Td>{instructor.name}</Td>
+                    <Td>{instructor.loginId}</Td>
+                    <Td>{instructor.birthDate}</Td>
+                    <Td>{instructor.gender}</Td>
+                    <Td>{instructor.nationality}</Td>
+                    <Td>{instructor.email}</Td>
+                    <Td>{instructor.phoneNum}</Td>
+                  </Tr>
+                ))}
             </tbody>
           </Table>
         </TableContainer>
+        <PieContainer>
+          <h2>유저 현황</h2>
+          <Pie
+            data={{
+              labels: ["Surfers", "Users", "Members", "Instructors"],
+              datasets: [
+                {
+                  label: "유저 수",
+                  data: [
+                    surfersCount,
+                    surferUsersCount,
+                    surferMembersCount,
+                    surferInstructorsCount,
+                  ],
+                  backgroundColor: [
+                    "lightblue",
+                    "lightgray",
+                    "lightgreen",
+                    "#454545",
+                  ],
+                  hoverOffset: 4,
+                },
+              ],
+            }}
+          />
+        </PieContainer>
       </Section>
     </Container>
   );

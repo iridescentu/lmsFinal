@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -93,7 +94,50 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 	
-	// admin 모든 강사 조회
+	// 모든 멤버 조회
+	@Override
+	public ResponseDto<List<MemberDto>> getAllSurfers() {
+		List<Member> members = memberRepository.findAll();
+	    List<MemberDto> memberDtos = members.stream()
+	        .map(member -> MemberDto.from(member))
+	        .collect(Collectors.toList());
+	    
+	    return new ResponseDto<List<MemberDto>>(
+	            ResultCode.SUCCESS.name(),
+	            memberDtos,
+	            "모든 멤버 조회가 성공하였습니다.");
+		
+	}
+	
+	// user 조회
+	@Override
+	public ResponseDto<List<MemberDto>> getAllUsers() {
+	    List<Member> users = memberRepository.findAllByAuthorities_AuthorityName("ROLE_USER");
+	    List<MemberDto> userDtos = users.stream()
+	        .map(MemberDto::from)
+	        .collect(Collectors.toList());
+
+	    return new ResponseDto<List<MemberDto>>(
+	            ResultCode.SUCCESS.name(),
+	            userDtos,
+	            "모든 사용자 조회가 성공하였습니다.");
+	}
+	
+	// member 조회
+	@Override
+	public ResponseDto<List<MemberDto>> getAllMembers() {
+	    List<Member> members = memberRepository.findAllByAuthorities_AuthorityName("ROLE_MEMBER");
+	    List<MemberDto> memberDtos = members.stream()
+	        .map(MemberDto::from)
+	        .collect(Collectors.toList());
+
+	    return new ResponseDto<List<MemberDto>>(
+	            ResultCode.SUCCESS.name(),
+	            memberDtos,
+	            "모든 멤버 조회가 성공하였습니다.");
+	}
+	
+	// 강사 조회
 	@Override
     public List<Member> getAllInstructors(){
 		return memberRepository.findAllByAuthorities_AuthorityName("ROLE_INSTRUCTOR");

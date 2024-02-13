@@ -64,7 +64,7 @@ export function AdminDashboardNavBar() {
               코스 및 강의 관리
             </StyledNavLink>
             <StyledNavLink to={`/dashboard/${user.loginId}/user_manage`}>
-              회원 정보
+              회원 관리
             </StyledNavLink>
             <StyledNavLink to={`/dashboard/${user.loginId}/post_manage`}>
               게시물 관리

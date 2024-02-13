@@ -43,7 +43,31 @@ public class MemberController {
 	public ResponseEntity<ResponseDto<MemberSignUpDto>> signUp(@RequestBody @Valid MemberSignUpDto memberSignUpDto) {
 		ResponseDto<MemberSignUpDto> responseDto = memberService.signUp(memberSignUpDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
-	}    
+	}
+	
+	// 모든 사용자 조회
+	@GetMapping("/surfer/list")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<ResponseDto<List<MemberDto>>> getAllSurfers(){
+		ResponseDto<List<MemberDto>> sufers = memberService.getAllSurfers();
+		return new ResponseEntity<>(sufers, HttpStatus.OK);
+	}
+	
+	// 멤버 조회
+	@GetMapping("/member/list")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<ResponseDto<List<MemberDto>>> getAllMembers(){
+		ResponseDto<List<MemberDto>> members = memberService.getAllMembers();
+		return new ResponseEntity<>(members, HttpStatus.OK);
+	}
+	
+	// 유저 조회
+	@GetMapping("/user/list")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<ResponseDto<List<MemberDto>>> getAllUsers(){
+		ResponseDto<List<MemberDto>> users = memberService.getAllUsers();
+		return new ResponseEntity<>(users, HttpStatus.OK);
+	}
 	
 	// 강사의 정보
 	@GetMapping("/instructor/list")

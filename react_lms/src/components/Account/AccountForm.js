@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { apiCreateOrder, apiGetCurrentUserCart } from "../RestApi";
+import { formatPrice } from "../Util/util";
 
 const Container = styled.div`
   display: grid;
@@ -208,9 +209,13 @@ export function AccountForm() {
               {cartItems.map((cartItem) => (
                 <SingleList key={cartItem.cartId}>
                   <div>
-                    <thumbnail className="thumbnail">썸네일</thumbnail>
-                    <p>{cartItem.course.courseName}</p>
-                    <p>{cartItem.price}</p>
+                    <p>
+                      [{cartItem.course.contentLevel}]{" "}
+                      {cartItem.course.courseName}
+                    </p>
+                    <p>수량: {cartItem.totalQuantity}</p>
+                    <p>가격: {formatPrice(cartItem.course.price)}</p>
+                    <p>총 가격: {formatPrice(cartItem.totalPrice)}</p>
                   </div>
                 </SingleList>
               ))}
