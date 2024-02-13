@@ -53,15 +53,19 @@ const Video = styled.div`
   height: 80vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   position: relative;
   & figure {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
     background-color: #f1f1f1;
+    width: 1000px;
+    height: 400px;
+    margin: 0 auto;
     & img {
-      margin-top: 45px;
       width: 100%;
-      height: 80%;
-      object-fit: contain;
+      object-fit: cover;
     }
   }
 `;
@@ -75,6 +79,7 @@ const StartVideo = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
   & .startButton {
     font-size: 5rem;
     color: #f1f1f1;

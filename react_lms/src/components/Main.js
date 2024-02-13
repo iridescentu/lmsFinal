@@ -478,19 +478,25 @@ export function Main() {
               <Topline>
                 <Img src={surfboard2_black} alt="surfboard2" />
               </Topline>
-              <ReviewText>수강평 하드 코딩</ReviewText>
+              <ReviewText>
+                선생님이 재미있어서 강의 들을 때 지루하지 않아요. 추천합니당.
+              </ReviewText>
             </ReviewContents>
             <ReviewContents>
               <Topline>
                 <Img src={surfboard_black} alt="surfboard" />
               </Topline>
-              <ReviewText>수강평 하드 코딩</ReviewText>
+              <ReviewText>
+                외국인인 제가 듣기에도 좋은 강의네요. 추천.
+              </ReviewText>
             </ReviewContents>
             <ReviewContents>
               <Topline>
                 <Img src={wave_black} alt="wave" />
               </Topline>
-              <ReviewText>수강평 하드 코딩</ReviewText>
+              <ReviewText>
+                강의 재미있네요. ^^ 다들 한 번씩 들어 보시길 추천합니다. ^^7
+              </ReviewText>
             </ReviewContents>
           </ReviewContBox>
         </Review>

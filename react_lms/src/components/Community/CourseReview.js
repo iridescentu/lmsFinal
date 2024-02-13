@@ -51,32 +51,21 @@ export function CourseReview() {
       <ReviewWrapper>
         <Title>" 수강생들의 100% 솔직한 찐 후기 "</Title>
         <Review>
-          <Name>고*영</Name>
+          <Name>윤*희</Name>
           <Text>
-            중간에 일본, 미국 왔다갔다하며 몇번이나 3차도전 실패였는데 매일
-            시간맞춰 강의를 수강해서 결국 성공했습니다 ^^ 쉽지 않았지만 이
-            장학금제도 덕분에 하루하루 영어공부가 즐거웠네요 앞으로 열심히
-            수강하겠습니다
+            선생님이 재미있어서 강의 들을 때 지루하지 않아요. 추천합니당.
           </Text>
           <CourseName>토익</CourseName>
         </Review>
         <Review>
-          <Name>고*영</Name>
-          <Text>
-            중간에 일본, 미국 왔다갔다하며 몇번이나 3차도전 실패였는데 매일
-            시간맞춰 강의를 수강해서 결국 성공했습니다 ^^ 쉽지 않았지만 이
-            장학금제도 덕분에 하루하루 영어공부가 즐거웠네요 앞으로 열심히
-            수강하겠습니다
-          </Text>
+          <Name>카*란</Name>
+          <Text>외국인인 제가 듣기에도 좋은 강의네요. 추천.</Text>
           <CourseName>토익</CourseName>
         </Review>
         <Review>
-          <Name>고*영</Name>
+          <Name>류*홍</Name>
           <Text>
-            중간에 일본, 미국 왔다갔다하며 몇번이나 3차도전 실패였는데 매일
-            시간맞춰 강의를 수강해서 결국 성공했습니다 ^^ 쉽지 않았지만 이
-            장학금제도 덕분에 하루하루 영어공부가 즐거웠네요 앞으로 열심히
-            수강하겠습니다
+            강의 재미있네요. ^^ 다들 한 번씩 들어 보시길 추천합니다. ^^7
           </Text>
           <CourseName>토익</CourseName>
         </Review>
