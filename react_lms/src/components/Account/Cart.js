@@ -6,6 +6,7 @@ import {
   apiGetCurrentUserCart,
   apiUpdateQuantityCart,
 } from "../RestApi";
+import { formatPrice, formatDateTimeStamp } from "../Util/util";
 
 const Container = styled.div`
   max-width: 800px;
@@ -30,6 +31,13 @@ const ProductInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  & .buttons {
+    display: flex;
+    gap: 1rem;
+  }
+  & .totalPrice {
+    color: #3182f6;
+  }
 `;
 
 const ProductName = styled.p`
@@ -70,6 +78,7 @@ export function Cart() {
       try {
         const response = await apiGetCurrentUserCart();
         setCartItems(response.data.data);
+        console.log(response.data.data);
       } catch (err) {
         console.log("장바구니 정보를 가져오는 중 오류: ", err);
       }
@@ -112,28 +121,36 @@ export function Cart() {
         <CartItem key={index}>
           {index === 0 && <h2>{item.member.name}의 물결 바구니</h2>}
           <ProductInfo>
-            <ProductName>{item.course.courseName}</ProductName>
+            <ProductName>
+              [{item.course.subject.subjectName}] [{item.course.contentLevel}]{" "}
+              {item.course.courseName} {item.course.instructorNames}
+            </ProductName>
             <p>
               상품정보: 시간 : {item.course.durationMins}, course정보에 따라
               불러오셈
             </p>
-            <Price>가격: {item.course.price}</Price>
+            <Price>{formatPrice(item.course.price)}</Price>
             <p>수량: {item.totalQuantity}</p>
-            <QuantityButton
-              onClick={() => updateQuantity(item.course.courseId, 1)}
-            >
-              증가
-            </QuantityButton>
-            <QuantityButton
-              onClick={() => updateQuantity(item.course.courseId, -1)}
-            >
-              감소
-            </QuantityButton>
-            <button onClick={() => deleteItem(item.course.courseId)}>
-              삭제
-            </button>
-            <p>총 가격: {item.totalPrice}</p>
-            <p>물결 바구니 등록 시간: {item.createDate}</p>
+            <div className="buttons">
+              <QuantityButton
+                onClick={() => updateQuantity(item.course.courseId, 1)}
+              >
+                증가
+              </QuantityButton>
+              <QuantityButton
+                onClick={() => updateQuantity(item.course.courseId, -1)}
+              >
+                감소
+              </QuantityButton>
+              <QuantityButton onClick={() => deleteItem(item.course.courseId)}>
+                삭제
+              </QuantityButton>
+            </div>
+            <p>
+              총 가격:{" "}
+              <span className="totalPrice">{formatPrice(item.totalPrice)}</span>
+            </p>
+            <p>물결 바구니 등록 시간: {formatDateTimeStamp(item.createDate)}</p>
           </ProductInfo>
         </CartItem>
       ))}

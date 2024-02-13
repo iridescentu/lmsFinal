@@ -24,6 +24,12 @@ const StyledNavLink = styled(NavLink)`
   color: #454545;
   cursor: pointer;
 `;
+
+const TaskWrapper = styled.div`
+  margin-top: 8px;
+  font-size: 14px;
+`;
+
 export function CourseCurriculem() {
   const { courseId } = useParams();
   const [content, setContent] = useState([]);
@@ -36,6 +42,7 @@ export function CourseCurriculem() {
     apiGetContentByCourse(courseId)
       .then((response) => {
         setContent(response.data.data);
+        console.log(response.data.data);
       })
       .catch((error) => {
         console.error("컨텐츠 정보 불러오기 오류: ", error);
@@ -47,7 +54,6 @@ export function CourseCurriculem() {
     apiGetCompletedContentHistories()
       .then((response) => {
         setCompletedContents(response.data.data);
-        console.log(response.data.data);
       })
       .catch((error) => {
         console.error("완료된 학습 이력 조회 오류: ", error);
@@ -88,10 +94,10 @@ export function CourseCurriculem() {
               >
                 {isCompleted ? "서핑 완료" : "서핑하기"}
               </StyledNavLink>
-              <div>
-                contentId - examID - examquestionId "과제 index+1"
+              <TaskWrapper>
+                <span>{item.contentId}-1 과제</span>
                 <StyledNavLink to="/testexam2">풀기</StyledNavLink>
-              </div>
+              </TaskWrapper>
             </div>
           );
         })}

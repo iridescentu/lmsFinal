@@ -86,7 +86,26 @@ export function apiGetCurrentUserInfo() {
     },
   });
 }
-
+// 모든 사용자 조회
+export function apiGetAllSurfers() {
+  return axios.get("http://localhost:8080/api/surfer/list", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+// ROLE_USER 조회
+export function apiGetAllUsers() {
+  return axios.get("http://localhost:8080/api/user/list", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+// ROLE_MEMBER 조회
+export function apiGetAllMembers() {
+  return axios.get("http://localhost:8080/api/member/list", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
 // 강사 정보 조회
 export function apiGetAllInstructors() {
   return axios.get("http://localhost:8080/api/instructor/list", {

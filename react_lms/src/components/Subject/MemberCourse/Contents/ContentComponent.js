@@ -8,7 +8,7 @@ import {
   apiPutCompleteContentHistory,
 } from "../../../RestApi";
 import { Icon } from "@iconify/react";
-import contentImg from "../../../image/surf_logo.png";
+import thumbnail from "../../../image/Thumbnail.jpg";
 import { formatTimeSeconds } from "../../../Util/util";
 import { CourseCurriculem } from "../../CourseCurriculum";
 
@@ -58,8 +58,10 @@ const Video = styled.div`
   & figure {
     background-color: #f1f1f1;
     & img {
+      margin-top: 45px;
       width: 100%;
-      object-fit: cover;
+      height: 80%;
+      object-fit: contain;
     }
   }
 `;
@@ -221,7 +223,7 @@ export function ContentComponent() {
           </StartVideo>
         )}
         <figure>
-          <img src={contentImg} alt="sample" />
+          <img src={thumbnail} alt="sample" />
         </figure>
         <VideoBar>
           <div>

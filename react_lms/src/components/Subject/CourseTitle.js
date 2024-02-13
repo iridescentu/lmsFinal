@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import surf_logo from "../image/surf_logo.png";
+import thumbnail from "../image/Toeic.jpg";
 import { Outlet, useParams } from "react-router-dom";
 import { MemberCourse } from "./MemberCourse/MemberCourse";
 import { UserCourse } from "./UserCourse/UserCourse";
@@ -28,8 +28,8 @@ const Container = styled.div`
 `;
 
 const ImgBox = styled.div`
-  padding: 100px 0;
-  background-color: #3182f6;
+  width: 100%;
+  padding: 1rem 0;
 `;
 
 const Img = styled.img`
@@ -137,7 +137,7 @@ export function CourseTitle() {
       <Container>
         <div className="innerWrapper">
           <ImgBox>
-            <Img src={surf_logo} alt="Sample"></Img>
+            <Img src={thumbnail} alt="Sample"></Img>
           </ImgBox>
           <CourseInfo>
             <div className="box">
