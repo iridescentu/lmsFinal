@@ -33,7 +33,7 @@ CREATE TABLE `content_history` (
   KEY `FKehcc7al1fuxw81pyw1jhav9ne` (`member_id`),
   CONSTRAINT `FKehcc7al1fuxw81pyw1jhav9ne` FOREIGN KEY (`member_id`) REFERENCES `members` (`member_id`),
   CONSTRAINT `FKt4fu94n7vpacujc7hwv8jx06x` FOREIGN KEY (`content_id`) REFERENCES `contents` (`content_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `content_history` (
 
 LOCK TABLES `content_history` WRITE;
 /*!40000 ALTER TABLE `content_history` DISABLE KEYS */;
-INSERT INTO `content_history` VALUES (1,_binary '','2024-02-13 10:48:45.371809',1,15);
+INSERT INTO `content_history` VALUES (1,_binary '','2024-02-13 11:29:28.155625',1,15),(2,_binary '\0','2024-02-13 11:29:37.380617',2,15),(3,_binary '\0','2024-02-13 11:30:03.780546',3,15);
 /*!40000 ALTER TABLE `content_history` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-13 11:13:20
+-- Dump completed on 2024-02-13 12:26:52
